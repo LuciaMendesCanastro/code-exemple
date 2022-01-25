@@ -18,7 +18,7 @@
                 </button>
             </div>
         <div v-if="results.length > 0">
-            <p class="city-search_result_title">Résulats de la recherche</p>
+            <p class="city-search_result_title">Résultats de la recherche</p>
             <ul>
                 <li
                     v-for="(result, index) in results"
