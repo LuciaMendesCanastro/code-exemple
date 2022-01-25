@@ -48,9 +48,7 @@ export default {
             axios.get(`https://6dd9b2f3c2c444e3bf48107dee582402.instances.fr1.caas.microservices.rest/api/v1.1/city?search=${userInput}`)
             .then(response => {
                 console.log(response)
-                this.results = response.data.results.map(result => {
-                    return result
-                });
+                this.results = response.data.results;
             })
         }
     }
