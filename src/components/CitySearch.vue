@@ -21,13 +21,21 @@
             <p class="city-search_result_title">Résultats de la recherche</p>
             <ul>
                 <li
-                    v-for="(result, index) in results"
+                    v-for="(result, index) in displayData"
                     :key="index"
                 >
                     <span class="city-search_results">{{result.name}} </span>
                     <span class="city-search_results"> {{result.zip_code}}</span>
                 </li>
             </ul>
+            <el-pagination
+                layout="prev, pager, next"
+                :total="results.length"
+                @current-change="setPage"
+                :page-size="pageSize"
+                class="pagination-results"
+            >
+            </el-pagination>
         </div>
     </div>
 </template>
@@ -41,6 +49,14 @@ export default {
         return {
             searchTerms: '',
             results: [],
+            page: 1,
+            pageSize: 5
+        }
+    },
+    computed:{
+        displayData() {
+            if (!this.results || this.results.length === 0) return [];
+            return this.results.slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
         }
     },
     methods: {
@@ -50,6 +66,9 @@ export default {
                 console.log(response)
                 this.results = response.data.results;
             })
+        },
+        setPage (val) {
+            this.page = val;
         }
     }
 }
@@ -103,5 +122,9 @@ export default {
 .city-search_results{
     font-family: Roboto;
     margin-top: 3em;
+}
+.pagination-results{
+    text-align: center;
+    font-family: Roboto;
 }
 </style>
